@@ -4,6 +4,7 @@
 Fork of [divan/gorilla-xmlrpc](https://github.com/divan/gorilla-xmlrpc/):
 - Fix `xml2rpc` for _raw_ string values (e.g. `<value>...</value>` instead of `<value><string>...</string></value>`)
 - Read `xml:"field_name"` tag in `xml2rpc`
+- Add `Codec.SetPrefix` to prefix every method names and avoid aliases (see https://github.com/divan/gorilla-xmlrpc/issues/14)
 ---
 
 [![GoDoc](https://godoc.org/github.com/divan/gorilla-xmlrpc/xml?status.svg)](https://godoc.org/github.com/divan/gorilla-xmlrpc/xml)

@@ -27,11 +27,17 @@ func NewCodec() *Codec {
 // Codec creates a CodecRequest to process each request.
 type Codec struct {
 	aliases map[string]string
+	prefix string
 }
 
 // RegisterAlias creates a method alias
 func (c *Codec) RegisterAlias(alias, method string) {
 	c.aliases[alias] = method
+}
+
+// SetPrefix set the prefix appended to each method name
+func (c *Codec) SetPrefix(prefix string) {
+	c.prefix = prefix
 }
 
 // NewRequest returns a CodecRequest.
@@ -50,6 +56,7 @@ func (c *Codec) NewRequest(r *http.Request) rpc.CodecRequest {
 	if method, ok := c.aliases[request.Method]; ok {
 		request.Method = method
 	}
+	request.Method = c.prefix + request.Method
 	return &CodecRequest{request: &request}
 }
 
