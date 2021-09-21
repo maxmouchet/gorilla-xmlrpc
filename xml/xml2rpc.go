@@ -133,10 +133,19 @@ func value2Field(value value, field *reflect.Value) error {
 			return fault
 		}
 		s := value.Struct
+		// Index struct field names
+		fieldNames := make(map[string]string)
+		for i := 0; i < field.NumField(); i++ {
+			name := field.Type().Field(i).Name
+			tag := field.Type().Field(i).Tag.Get("xml")
+			if tag != "" {
+				fieldNames[tag] = name
+			} else {
+				fieldNames[name] = name
+			}
+		}
 		for i := 0; i < len(s); i++ {
-			// Uppercase first letter for field name to deal with
-			// methods in lowercase, which cannot be used
-			field_name := uppercaseFirst(s[i].Name)
+			field_name := fieldNames[s[i].Name]
 			f := field.FieldByName(field_name)
 			err = value2Field(s[i].Value, &f)
 		}
@@ -151,8 +160,8 @@ func value2Field(value value, field *reflect.Value) error {
 		}
 		f = reflect.AppendSlice(f, slice)
 		val = f.Interface()
-	case len(value.Array) == 0:
-		val = val
+	//case len(value.Array) == 0:
+	//	val = val
 
 	default:
 		// value field is default to string, see http://en.wikipedia.org/wiki/XML-RPC#Data_types

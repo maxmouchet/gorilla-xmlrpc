@@ -1,5 +1,11 @@
 # gorilla-xmlrpc #
 
+---
+Fork of [divan/gorilla-xmlrpc](https://github.com/divan/gorilla-xmlrpc/):
+- Fix `xml2rpc` for _raw_ string values (e.g. `<value>...</value>` instead of `<value><string>...</string></value>`)
+- Read `xml:"field_name"` tag in `xml2rpc`
+---
+
 [![GoDoc](https://godoc.org/github.com/divan/gorilla-xmlrpc/xml?status.svg)](https://godoc.org/github.com/divan/gorilla-xmlrpc/xml)
 
 XML-RPC implementation for the Gorilla/RPC toolkit.
