@@ -166,7 +166,9 @@ func value2Field(value value, field *reflect.Value) error {
 	default:
 		// value field is default to string, see http://en.wikipedia.org/wiki/XML-RPC#Data_types
 		// also can be <nil/>
-		if value.Raw == "<struct/>" {
+		if value.Raw == "<struct/>" || value.Raw == "<struct></struct>" {
+			val = nil
+		} else if value.Raw == "<array><data/></array>" || value.Raw == "<array><data></data></array>" {
 			val = nil
 		} else if value.Raw != "<nil/>" {
 			val = value.Raw

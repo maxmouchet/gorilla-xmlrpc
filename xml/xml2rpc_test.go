@@ -40,6 +40,18 @@ func TestXML2RPC(t *testing.T) {
 	}
 }
 
+type StructArrayXml2Rpc struct {
+	Data []int
+}
+
+func TestXML2RPCEmptyArray(t *testing.T) {
+	req := new(StructArrayXml2Rpc)
+	err := xml2RPC("<methodCall><methodName>Some.Method</methodName><params><param><value><array><data/></array></value></param></params></methodCall>", req)
+	if err != nil {
+		t.Error("XML2RPC conversion failed", err)
+	}
+}
+
 type StructSpecialCharsXml2Rpc struct {
 	String1 string
 }
